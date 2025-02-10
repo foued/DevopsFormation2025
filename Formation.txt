@@ -1,0 +1,64 @@
+
+
+https://982534391093.signin.aws.amazon.com/console
+
+user4
+
+qQWY7[0]
+ https://eu-west-1.console.aws.amazon.com/ec2/home?region=eu-west-1#Instances:
+ 
+ 
+ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCuVvSguriBVaaHL3s0KjmZXIeOccWawLEUZNwn61s/KA1Pq7qM0wE9lgRuRP40ixT7l1dZGHghIueNaeiXomw10e1T6gs+7YfPdVFxszukebx9jQX4GC1zG9aLaN/hVWFHv+1rwbGKraRVPFKbmXV2aUNZYk3WsTacRk6G4dt+w1GhHy0N7BGsbHsYrX1LcxQ6FFn9cL0Tok1n4GasXeNKQHh4E66hBXqgAKvO6wyHaMLR8VvKS8j3MIJEjL6fdL9Sfr5+k5hFhOBrBf7hHVDvOiUiwts6RMjNGIc3ZqC9JJJShsZnSNQph40hJAhmTCWWFBJxft4bPP1hvzb29IyUsC+SmrQaACjBpCyPZa611HUasaGxtlVD51s6KJl8Zq4x1SZ5lrAJBSX0ClvjD+SlzX/du5IlOIcnHee1PHbkE8SkK+HyR77rqyfi+QDttGN3Ad4cOTwKKlr/6oBbv24WQJu8cgDVCLmhuRTsSQxrjx4TeN7cDbRIP2MkRmNPCWk= jenkins@MachineFouedJenkins
+
+
+admin:admin
+foued:aaa
+
+
+
+Nous avons créer deux machines Ubuntu: JenkinsFoued, FouedProd.
+
+Sous ces deux machines nous avons créer deux users jenkins:jenkins
+
+
+
+Pour que les deux machines puissent communiquer en ssh
+
+on a génere des clés privé et publique depuis la machine JenkinsFoued avec le user Jenkins
+
+
+ssh-keygen -t rsa
+
+il va te génerer une paire de clé sous ton dossier de ton user jenkins /.ssh$
+
+il faut copier la clé publique dans le dossier ./ssh , dans le fichier authorized_keys , s'il n'existe pas , il faut le créer.
+
+Etape 2 : installer jenkins 
+
+
+Une fois que jenkins installer , parfois l'interface graphique ne répond pas :
+
+test a faire :
+
+systemctl status jenkins --> poir voir le service si est up ou non
+
+netstat -tulnp | grep 8080--> pour voir si ce port est utilisé ou non par jenkins ( il doit afficher une ligne)
+
+tu peux le tester par un simple 
+
+curl localhost:8080  , tu dois avoir une réponse sur ton terminal en format html
+
+
+***************************************************************************************
+
+Une machine ec2 quand on la démarre elle a deux adresse ip (ip publique et ip privé)
+
+a quoi servent elles : ip privé c'est ip qui est dans le lan , c'est avec cette ip que la machine communique avec d'autres machines dans le lan 
+
+ip publique c'est avec cette ip que communique notre machine avce internet , exposer un service via cette ip ( tomcat, jenkins,....)
+
+
+
+
+
+
